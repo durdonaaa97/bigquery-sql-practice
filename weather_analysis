@@ -1,1 +1,25 @@
+-- Query to clean and retrieve weather data from NOAA GSOD dataset
 
+SELECT
+  stn,  -- Weather station ID
+  date, -- Date of observation
+  IF(
+     temp=9999.9,  -- Missing temperature values are marked as 9999.9
+     NULL,
+     temp) AS temperature,
+  IF(
+     wdsp="999.9",  -- Missing wind speed values are marked as "999.9"
+     NULL,
+     CAST(wdsp AS Float64)) AS wind_speed,
+  IF(
+     prcp=99.99,  -- Missing precipitation values are marked as 99.99
+     0,
+     prcp) AS precipitation
+FROM
+  `bigquery-public-data.noaa_gsod.gsod2020`
+WHERE
+  stn="725030" -- La Guardia Airport
+  OR stn="744860" -- JFK Airport
+ORDER BY
+  date DESC,
+  stn ASC;

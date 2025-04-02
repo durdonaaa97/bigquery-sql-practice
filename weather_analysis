@@ -1,3 +1,16 @@
+--Query to sort the weather data by the hottest month of the year 
+
+Select *
+From `bigquery-public-data.noaa_gsod.gsod2020`
+Order by mo DESC
+AND temp 
+
+
+
+
+
+
+
 -- Query to clean and retrieve weather data from the NOAA GSOD dataset
 
 SELECT

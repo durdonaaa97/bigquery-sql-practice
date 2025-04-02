@@ -1,4 +1,4 @@
--- Query to clean and retrieve weather data from NOAA GSOD dataset
+-- Query to clean and retrieve weather data from the NOAA GSOD dataset
 
 SELECT
   stn,  -- Weather station ID
@@ -23,3 +23,16 @@ WHERE
 ORDER BY
   date DESC,
   stn ASC;
+
+## Weather Data Cleaning Query
+
+This query extracts weather station data from the **NOAA GSOD 2020 dataset** in Google BigQuery.  
+It cleans missing values by replacing placeholders with `NULL` or `0` where appropriate.
+
+- **Dataset:** `bigquery-public-data.noaa_gsod.gsod2020`
+- **Weather stations:** La Guardia (`725030`), JFK (`744860`)
+- **Fixes applied:**
+  - `9999.9` → `NULL` for missing temperatures
+  - `"999.9"` → `NULL` for missing wind speeds (converted to Float64)
+  - `99.99` → `0` for missing precipitation values
+
